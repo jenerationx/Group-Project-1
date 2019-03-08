@@ -21,7 +21,7 @@ Bonus
 If we get far enough:
 - If user wants to display the menu, to display a link to the menu or a picture. Create options for those also.
 
-/*
+*/
 
 
 
