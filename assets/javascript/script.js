@@ -24,4 +24,42 @@ If we get far enough:
 */
 
 
+var config = {
+    apiKey: "AIzaSyD_snZYOPOx9m99BoAtz6f2M4ZNpOinGek",
+    authDomain: "decisionmaker-d2e6a.firebaseapp.com",
+    databaseURL: "https://decisionmaker-d2e6a.firebaseio.com",
+    projectId: "decisionmaker-d2e6a",
+    storageBucket: "decisionmaker-d2e6a.appspot.com",
+    messagingSenderId: "354052183088"
+  };
+  firebase.initializeApp(config);
 
+  var database = firebase.database();
+  
+  
+
+  $("#show-choices").on("click", function(event){
+    event.preventDefault();
+    var userLocation = $("#location").val().trim();
+    console.log(userLocation);
+    var cuisine = $("#cuisine").val().trim();
+    console.log(cuisine);
+    var priceRange = $("#price-range").val().trim();
+    console.log(priceRange);    
+  })
+
+  $("#choose-for-me").on("click", function(event){
+    event.preventDefault();
+    var userLocation = $("#location").val().trim();
+    console.log(userLocation);
+    var cuisine = $("#cuisine").val().trim();
+    console.log(cuisine);
+    var priceRange = $("#price-range").val().trim();
+    console.log(priceRange);    
+  })
+  
+ /* $.ajax({
+    method: "GET",
+    url: 
+  })
+*/
