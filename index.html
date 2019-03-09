@@ -7,13 +7,24 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
 </head>
 
 <body>
     <!--
         ** Everything will be CENTERED!
         ---------------------------------
+        
         - Add header with the title of application
 
         - Make a div containging the next two steps
@@ -28,8 +39,142 @@
         - At the bottom of the app, create a button that says 'Try Again'
 
     -->
+    <header>
+        <nav class="navbar text-light">
+            <!-- Navbar content -->
+            <nav class="navbar-brand text-light">
+                <h1>Where Should We Eat?</h1>
+            </nav>
+        </nav>
+        <div class="food-image"></div>
+    </header>
+    <br>
+    <div class="container">
+        <!-- Content here -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-light" id="instructions">
+                    <div class="card-body">
+                        <div>
+                            <h4>Having trouble deciding where to go out to eat? Let us help you pick a restaurant ... or
+                                we can pick for you! Just enter your zip code below and let us know your cuisine
+                                preference and
+                                price
+                                range.
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header text-light">
+                        Your Info:
+                    </div>
+                    <div class="card-body">
+                        <form role="form">
+                            <!-- Zip code-->
+                            <div class="form-group">
+                                <label for="zip">Zip Code</label>
+                                <input type="number" class="form-control" id="zip-code">
+                            </div>
 
-    <script src="assets/javascript/script.js"></script> -->
+                            <!-- Cuisine type dropdown (can add more later)  -->
+                            <div class="form-group">
+                                <label for="cuisine">Cuisine</label>
+                                <select id="cuisine" class="custom-select" aria-labelledby="dropdownMenuButton">
+                                    <option selected value="any" selected>Any</option>
+                                    <option value="American">American</option>
+                                    <option value="Italian">Italian</option>
+                                    <option value="Chinese">Chinese</option>
+                                    <option value="Fast Food">Fast Food</option>
+                                    <option value="Seafood">Seafood</option>
+                                    <option value="Steak">Steak</option>
+                                    <option value="Indian">Indian</option>
+                                </select>
+                            </div>
+
+                            <!-- Price range dropdown-->
+                            <div class="form-group">
+                                <label for="price-range">Price Range</label>
+                                <select id="price-range" class="custom-select" aria-labelledby="dropdownMenuButton">
+                                    <option selected value="any" selected>Any</option>
+                                    <option value="$">$</option>
+                                    <option value="$$">$$</option>
+                                    <option value="$$$">$$$</option>
+                                    <option value="$$$$">$$$$</option>
+                                </select>
+                            </div>
+                            <!-- Submit buttons -->
+                            <button type="submit" class="btn text-light" id="show-choices">
+                                Show Me Some Choices!</button>
+                            -OR-
+                            <button type="submit" class="btn text-light" id="choose-for-me">
+                                Choose For Me!</button>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header text-light">
+                        Results:
+                    </div>
+                    <!-- Retrieved results go here -->
+                    <div class="card-body" id="restaurants">
+                    </div>
+                    <button type="submit" class="btn text-light" id="try-again">Yuck! Try again!</button>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header text-light">
+                        Recent Recommendations
+                    </div>
+                    <!-- Recent Recommendations (this is where our table element will go) -->
+                    <div class="card-body" id="recent">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Zip Code</th>
+                                    <th scope="col">Restaurant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>17011</td>
+                                    <td>The Brewhouse Grille</td>
+                                </tr>
+                                <tr>
+                                    <td>19147</td>
+                                    <td>Jim's Steaks</td>
+                                </tr>
+                                <tr>
+                                    <td>30306</td>
+                                    <td>Majestic Diner</td>
+                                </tr>
+                                <tr>
+                                    <td>08046</td>
+                                    <td>Gaetano's Penny Packer</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <hr>
+            <h5 class="text-center">
+                <small>Made by Group 3 - Brandon - Jenny - Michael - Salaam
+                </small>
+            </h5>
+
+        </div>
+    </div>
+
+    <script src="assets/javascript/script.js"></script>
 </body>
 
 </html>
