@@ -57,9 +57,7 @@ var config = {
     var priceRange = $("#price-range").val().trim();
     console.log(priceRange);    
   })
-  
- /* $.ajax({
+
+$.ajax({
     method: "GET",
-    url: 
   })
-*/
