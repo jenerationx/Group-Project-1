@@ -1,0 +1,37 @@
+/* 
+
+Possible colors:
+#960000
+#005896
+#A5A3A5
+#000000
+
+*/
+
+.navbar {
+    background-color: #960000;
+    padding: 20px;
+}
+body {    
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.food-image {
+    background-image: url(../images/yummy.jpg);
+    background-size: 100% 100%;
+    height: 320px;
+}
+#instructions{
+    background-color: #960000;
+}
+.card-header {
+    background-color: #005896;
+}
+#try-again {
+    display: none;
+}
+thead {
+    font-weight: bold;
+}
+.btn {
+    background-color: #960000;
+}
