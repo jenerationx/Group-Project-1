@@ -58,6 +58,28 @@ var config = {
     console.log(priceRange);    
   })
 
-$.ajax({
-    method: "GET",
-  })
+  $("#choose-for-me").on("click", function (event) {
+    event.preventDefault();
+    var userLocation = $("#location").val().trim();
+    console.log(userLocation);
+    var cuisine = $("#cuisine").val().trim();
+    console.log(cuisine);
+    var priceRange = $("#price-range").val().trim();
+    console.log(priceRange);
+    
+    var queryURL = "https://api.foursquare.com/v2/venues/explore?client_id=PXVN42TSZPDRDQX5YLJQXWPRSKQDVDFKB3B2EDHKUKGMGQJO&client_secret=TN4NHHCPCIGXVKI5VWSSR4JKBYO0DJTEDS02BKDBOUVY5KKJ&near=" + userLocation + "&query=&limit=1 &v=20190311"
+  // need to add price range
+  // need to make limit = 10 math.random
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
+    $("#restaurants").text("We suggest: " + (response.response.groups[0].items[0].venue.name) + "  " + (response.response.groups[0].items[0].venue.location.address) + "  " +(response.response.groups[0].items[0].venue.location.city) + ", "+(response.response.groups[0].items[0].venue.location.state) + "  " + (response.response.groups[0].items[0].venue.location.postalCode));
+  $("#try-again").show();
+    console.log(response);
+    console.log(response.response.groups[0].items[0].venue.name);
+    console.log(response.response.groups[0].items[0].venue.location.address);
+  
+  });
+  
+  });
