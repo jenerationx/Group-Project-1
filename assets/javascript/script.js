@@ -178,6 +178,7 @@ $("#try-again").on("click", function (event) {
     console.log(suggestedRestuarantIndex);
 
     var restaurantName = restuarantDetails[suggestedRestuarantIndex].venue.name;
+    var restuarantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
 
     console.log(restaurantName);
     var lat = restuarantDetails[suggestedRestuarantIndex].venue.location.lat;
