@@ -68,14 +68,15 @@
                             <!-- Zip code-->
                             <div class="form-group">
                                 <label for="location">Location</label>
-                                <input type="text" class="form-control" id="location" placeholder="City, State, or Zip Code">
+                                <input type="text" class="form-control" id="location"
+                                    placeholder="City, State, or Zip Code">
                             </div>
 
                             <!-- Cuisine type dropdown (can add more later)  -->
                             <div class="form-group">
                                 <label for="cuisine">Cuisine</label>
                                 <select id="cuisine" class="custom-select" aria-labelledby="dropdownMenuButton">
-                                    <option selected value="any" selected>Any</option>
+                                    <option selected value="food" selected>Any</option>
                                     <option value="American">American</option>
                                     <option value="Italian">Italian</option>
                                     <option value="Chinese">Chinese</option>
@@ -91,6 +92,7 @@
                             <div class="form-group">
                                 <label for="price-range">Price Range</label>
                                 <select id="price-range" class="custom-select" aria-labelledby="dropdownMenuButton">
+                                    <option value="" selected>Any</option>
                                     <option value="1" selected>$</option>
                                     <option value="2">$$</option>
                                     <option value="3">$$$</option>
