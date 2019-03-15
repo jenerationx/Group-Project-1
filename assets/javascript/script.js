@@ -25,12 +25,12 @@ If we get far enough:
 
 
 var config = {
-  apiKey: "AIzaSyD_snZYOPOx9m99BoAtz6f2M4ZNpOinGek",
-  authDomain: "decisionmaker-d2e6a.firebaseapp.com",
-  databaseURL: "https://decisionmaker-d2e6a.firebaseio.com",
-  projectId: "decisionmaker-d2e6a",
-  storageBucket: "decisionmaker-d2e6a.appspot.com",
-  messagingSenderId: "354052183088"
+  apiKey: "AIzaSyDiRTsG36T5bpRpKTUxJ_Ew9Z7srEmAKfA",
+  authDomain: "wheretoeat-514d4.firebaseapp.com",
+  databaseURL: "https://wheretoeat-514d4.firebaseio.com",
+  projectId: "wheretoeat-514d4",
+  storageBucket: "wheretoeat-514d4.appspot.com",
+  messagingSenderId: "9732935588"
 };
 firebase.initializeApp(config);
 
@@ -128,7 +128,7 @@ $("#choose-for-me").on("click", function (event) {
 
     var restuarantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
     $("#restaurants").text("We suggest: " + restaurantName + "   " + restuarantLoc);
-
+    console.log(response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress);
     var lat = restuarantDetails[suggestedRestuarantIndex].venue.location.lat;
     var lng = restuarantDetails[suggestedRestuarantIndex].venue.location.lng;
     console.log(lat, lng);
@@ -143,12 +143,42 @@ $("#choose-for-me").on("click", function (event) {
 
     $("#restaurants").append(wazeBtn);
 
-  $("#try-again").show();
-  $("#waze-btn").on("click", function (event) {
-  event.preventDefault();
-  window.location = "https://www.waze.com/ul?ll="+lat+"%2C"+lng+"&navigate=yes&zoom=17";
-});
-});
+    $("#try-again").show();
+    $("#waze-btn").on("click", function (event) {
+      event.preventDefault();
+      window.location = "https://www.waze.com/ul?ll=" + lat + "%2C" + lng + "&navigate=yes&zoom=17";
+
+      // stores the recommendation in a temp object
+
+    });
+    var recommendedation = {
+      name: restaurantName,
+      location: restuarantLoc,
+    };
+
+    // Uploads new recommendation to the database
+    database.ref().push(recommendedation);
+
+    console.log(recommendedation.name);
+    console.log(recommendedation.location);
+    database.ref().on("child_added", function (childSnapshot) {
+      console.log(childSnapshot.val());
+
+      // Store everything into a variable.
+      var restName = childSnapshot.val().name;
+      var restLoc = childSnapshot.val().location[1];
+      console.log(restName);
+      console.log(restLoc);
+      var newRow = $("<tr>").prepend(
+        $("<td>").text(restName),
+        $("<td>").text(restLoc),
+    );
+
+    // Append the new row to the table
+    $("#recommendation").append(newRow);
+
+    });
+  });
 
 });
 $("#try-again").on("click", function (event) {
