@@ -73,7 +73,7 @@ $("#show-choices").on("click", function (event) {
       var restaurantLoc = restuarantDetails[r[i]].venue.location.formattedAddress;
       var threeChoices = $("<p>" + "<strong>" + restaurantName + "</strong>" + "   " + restaurantLoc + "</p>");
       $("#restaurants").append(threeChoices);
-      $(threeChoices).addClass("py-2")
+      $(threeChoices).addClass("py-3")
       console.log(restaurantName);
       // var lat = restuarantDetails[r[i]].venue.location.lat;
       // var lng = restuarantDetails[r[i]].venue.location.lng;
@@ -90,7 +90,7 @@ $("#show-choices").on("click", function (event) {
 
       wazeBtn.addClass("btn text-light float-right");
 
-      wazeBtn.text("Take me there with Waze");
+      wazeBtn.html("Take me there with Waze" + "<img src=https://img.icons8.com/color/48/000000/waze.png>");
 
       threeChoices.append(wazeBtn);
 
@@ -159,7 +159,7 @@ $("#choose-for-me").on("click", function (event) {
 
     wazeBtn.addClass("btn text-light float-right");
 
-    wazeBtn.text("Take me there with Waze");
+    wazeBtn.html("Take me there with Waze" + "<img src=https://img.icons8.com/color/48/000000/waze.png>");
 
     appChoice.append(wazeBtn);
 
@@ -227,7 +227,7 @@ $("#try-again").on("click", function (event) {
 
     wazeBtn.addClass("btn text-light float-right");
 
-    wazeBtn.text("Take me there with Waze");
+    wazeBtn.html("Take me there with Waze" + "<img src=https://img.icons8.com/color/48/000000/waze.png>");
 
     appChoice.append(wazeBtn);
 
