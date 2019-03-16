@@ -27,7 +27,7 @@ body {
 }
 #recent {
     height: 315px;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 #try-again {
     display: none;
