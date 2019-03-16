@@ -75,14 +75,18 @@ $("#show-choices").on("click", function (event) {
       $("#restaurants").append(threeChoices);
       $(threeChoices).addClass("py-2")
       console.log(restaurantName);
-      console.log(this);
-      var lat = restuarantDetails[r[i]].venue.location.lat;
-      var lng = restuarantDetails[r[i]].venue.location.lng;
-      console.log(lat, lng);
+      // var lat = restuarantDetails[r[i]].venue.location.lat;
+      // var lng = restuarantDetails[r[i]].venue.location.lng;
+      // console.log(lat, lng);
 
       var wazeBtn = $("<button>");
 
       wazeBtn.attr("id", "waze-btn");
+
+      wazeBtn.attr("data-lat", restuarantDetails[r[i]].venue.location.lat);
+      wazeBtn.attr("data-lng", restuarantDetails[r[i]].venue.location.lng);
+
+      wazeBtn.attr("data-lng", restuarantDetails[r[i]].venue.location.lng);
 
       wazeBtn.addClass("btn text-light float-right");
 
@@ -90,23 +94,25 @@ $("#show-choices").on("click", function (event) {
 
       threeChoices.append(wazeBtn);
 
-      $("#waze-btn").on("click", function (event) {
+      $(wazeBtn).on("click", function (event) {
         event.preventDefault();
+        var lat = $(this).attr("data-lat");
+        var lng = $(this).attr("data-lng");
         window.location = "https://www.waze.com/ul?ll=" + lat + "%2C" + lng + "&navigate=yes&zoom=17";
       });
-          // stores the recommendation in a temp object
-    var recommendedation = {
-      name: restaurantName,
-      location: restaurantLoc,
-    };
+      // stores the recommendation in a temp object
+      var recommendedation = {
+        name: restaurantName,
+        location: restaurantLoc,
+      };
 
-    // Uploads new recommendation to the database
-    database.ref().push(recommendedation);
+      // Uploads new recommendation to the database
+      database.ref().push(recommendedation);
 
     };
 
   });
-})
+});
 
 $("#choose-for-me").on("click", function (event) {
   event.preventDefault();

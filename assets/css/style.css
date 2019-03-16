@@ -13,7 +13,7 @@ Possible colors:
   }
 #header, nav {    
     font-family: "mumbai";
-    font-size: 75px !important;
+    font-size: 75px;
     background-color: #960000;
 }
 body {    
@@ -26,7 +26,7 @@ body {
     background-color: #005896;
 }
 #recent {
-    height: 300px;
+    height: 315px;
     overflow-y: scroll;
 }
 #try-again {
@@ -37,4 +37,14 @@ thead {
 }
 .btn {
     background-color: #960000;
+}
+@media screen and (max-width: 768px) {
+    #header, nav {
+      font-size: 50px;
+    }
+  }
+  @media screen and (max-width: 640px) {
+    #header, nav {
+        font-size: 50px;
+    }
 }
