@@ -7,10 +7,14 @@ Possible colors:
 #000000
 
 */
-
-.navbar {
+@font-face {
+    font-family: "mumbai";
+    src: url(../images/TheMumbaiStickerDemo-Regular\ 2.ttf);
+  }
+#header, nav {    
+    font-family: "mumbai";
+    font-size: 75px !important;
     background-color: #960000;
-    padding: 20px;
 }
 body {    
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -20,6 +24,10 @@ body {
 }
 .card-header {
     background-color: #005896;
+}
+#recent {
+    height: 300px;
+    overflow-y: scroll;
 }
 #try-again {
     display: none;
