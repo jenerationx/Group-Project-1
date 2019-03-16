@@ -38,6 +38,7 @@ var database = firebase.database();
 
 $("#show-choices").on("click", function (event) {
   event.preventDefault();
+  $("#try-again").hide();
   $("#restaurants").empty();
   var userLocation = $("#location").val().trim();
   console.log(userLocation);
@@ -66,31 +67,43 @@ $("#show-choices").on("click", function (event) {
       a[i] = a[10 - n];
     }
     console.log(r);
+    console.log(restuarantDetails);
+    for (var i = 0; i < r.length; i++) {
+      var restaurantName = restuarantDetails[r[i]].venue.name;
+      var restaurantLoc = restuarantDetails[r[i]].venue.location.formattedAddress;
+      var threeChoices = $("<p>" + "<strong>" + restaurantName + "</strong>" + "   " + restaurantLoc + "</p>");
+      $("#restaurants").append(threeChoices);
+      $(threeChoices).addClass("py-2")
+      console.log(restaurantName);
+      console.log(this);
+      var lat = restuarantDetails[r[i]].venue.location.lat;
+      var lng = restuarantDetails[r[i]].venue.location.lng;
+      console.log(lat, lng);
 
-    var restaurantName1 = restuarantDetails[r[0]].venue.name;
-    var restaurantName2 = restuarantDetails[r[1]].venue.name;
-    var restaurantName3 = restuarantDetails[r[2]].venue.name;
+      var wazeBtn = $("<button>");
 
-    var restuarantLoc1 = response.response.groups[0].items[r[0]].venue.location.formattedAddress;
-    var restuarantLoc2 = response.response.groups[0].items[r[1]].venue.location.formattedAddress;
-    var restuarantLoc3 = response.response.groups[0].items[r[2]].venue.location.formattedAddress;
+      wazeBtn.attr("id", "waze-btn");
 
-    var lat1 = restuarantDetails[r[0]].venue.location.lat;
-    var lng1 = restuarantDetails[r[0]].venue.location.lng;
-    var lat2 = restuarantDetails[r[1]].venue.location.lat;
-    var lng2 = restuarantDetails[r[1]].venue.location.lng;
-    var lat3 = restuarantDetails[r[2]].venue.location.lat;
-    var lng3 = restuarantDetails[r[2]].venue.location.lng;
+      wazeBtn.addClass("btn text-light float-right");
 
-    console.log(lat1, lng1, lat2, lng2, lat3, lng3);
+      wazeBtn.text("Take me there with Waze");
 
-    var p1 = $("<p>").text(restaurantName1 + " " + restuarantLoc1);
-    var p2 = $("<p>").text(restaurantName2 + " " + restuarantLoc2);
-    var p3 = $("<p>").text(restaurantName3 + " " + restuarantLoc3);
+      threeChoices.append(wazeBtn);
 
-    $("#restaurants").append(p1);
-    $(p1).append(p2);
-    $(p2).append(p3);
+      $("#waze-btn").on("click", function (event) {
+        event.preventDefault();
+        window.location = "https://www.waze.com/ul?ll=" + lat + "%2C" + lng + "&navigate=yes&zoom=17";
+      });
+          // stores the recommendation in a temp object
+    var recommendedation = {
+      name: restaurantName,
+      location: restaurantLoc,
+    };
+
+    // Uploads new recommendation to the database
+    database.ref().push(recommendedation);
+
+    };
 
   });
 })
@@ -114,7 +127,6 @@ $("#choose-for-me").on("click", function (event) {
   }).then(function (response) {
     console.log(response);
 
-    // console.log(response.response.groups[0]);
     var restuarantDetails = response.response.groups[0].items;
 
     var numOfResults = response.response.groups[0].items.length;
@@ -126,9 +138,11 @@ $("#choose-for-me").on("click", function (event) {
 
     console.log(restaurantName);
 
-    var restuarantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
-    $("#restaurants").text("We suggest: " + restaurantName + "   " + restuarantLoc);
-    console.log(response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress);
+    var restaurantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
+    console.log(restaurantLoc);
+    var appChoice = $("<p>" + "<strong>" + restaurantName + "</strong>" + "   " + restaurantLoc + "</p>");
+    $("#restaurants").append(appChoice);
+
     var lat = restuarantDetails[suggestedRestuarantIndex].venue.location.lat;
     var lng = restuarantDetails[suggestedRestuarantIndex].venue.location.lng;
     console.log(lat, lng);
@@ -137,23 +151,21 @@ $("#choose-for-me").on("click", function (event) {
 
     wazeBtn.attr("id", "waze-btn");
 
-    wazeBtn.addClass("btn text-light");
+    wazeBtn.addClass("btn text-light float-right");
 
     wazeBtn.text("Take me there with Waze");
 
-    $("#restaurants").append(wazeBtn);
+    appChoice.append(wazeBtn);
 
     $("#try-again").show();
     $("#waze-btn").on("click", function (event) {
       event.preventDefault();
       window.location = "https://www.waze.com/ul?ll=" + lat + "%2C" + lng + "&navigate=yes&zoom=17";
-
-      // stores the recommendation in a temp object
-
     });
+    // stores the recommendation in a temp object
     var recommendedation = {
       name: restaurantName,
-      location: restuarantLoc,
+      location: restaurantLoc,
     };
 
     // Uploads new recommendation to the database
@@ -161,23 +173,7 @@ $("#choose-for-me").on("click", function (event) {
 
     console.log(recommendedation.name);
     console.log(recommendedation.location);
-    database.ref().on("child_added", function (childSnapshot) {
-      console.log(childSnapshot.val());
 
-      // Store everything into a variable.
-      var restName = childSnapshot.val().name;
-      var restLoc = childSnapshot.val().location[1];
-      console.log(restName);
-      console.log(restLoc);
-      var newRow = $("<tr>").prepend(
-        $("<td>").text(restName),
-        $("<td>").text(restLoc),
-    );
-
-    // Append the new row to the table
-    $("#recommendation").append(newRow);
-
-    });
   });
 
 });
@@ -208,18 +204,59 @@ $("#try-again").on("click", function (event) {
     console.log(suggestedRestuarantIndex);
 
     var restaurantName = restuarantDetails[suggestedRestuarantIndex].venue.name;
-    var restuarantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
+    var restaurantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
 
     console.log(restaurantName);
+
+    var appChoice = $("<p>" + "<strong>" + restaurantName + "</strong>" + "   " + restaurantLoc + "</p>");
+    $("#restaurants").append(appChoice);
+
     var lat = restuarantDetails[suggestedRestuarantIndex].venue.location.lat;
     var lng = restuarantDetails[suggestedRestuarantIndex].venue.location.lng;
     console.log(lat, lng);
-    // var restuarantLoc = response.response.groups[0].items[suggestedRestuarantIndex].venue.location.formattedAddress;
 
-    $("#restaurants").text("We suggest: " + restaurantName + "   " + restuarantLoc);
-    // $("#restaurants").text("We suggest: " + (response.response.groups[0].items[suggestedRestuarantIndex].venue.name) + "    " + response.response.groups[0].items[suggestedRestuarantIndex].venue.location.address + "    " +response.response.groups[0].items[suggestedRestuarantIndex].venue.location.city + ", " + response.response.groups[0].items[suggestedRestuarantIndex].venue.location.state) + "   " +response.response.groups[0].items[suggestedRestuarantIndex].venue.location.postalCode;
+    var wazeBtn = $("<button>");
+
+    wazeBtn.attr("id", "waze-btn");
+
+    wazeBtn.addClass("btn text-light float-right");
+
+    wazeBtn.text("Take me there with Waze");
+
+    appChoice.append(wazeBtn);
+
     $("#try-again").show();
-    // https://www.waze.com/ul?ll=40.75889500%2C-73.98513100&navigate=yes&zoom=17
+    $("#waze-btn").on("click", function (event) {
+      event.preventDefault();
+      window.location = "https://www.waze.com/ul?ll=" + lat + "%2C" + lng + "&navigate=yes&zoom=17";
+    });
+    $("#try-again").show();
+
+    // stores the recommendation in a temp object
+    var recommendedation = {
+      name: restaurantName,
+      location: restaurantLoc,
+    };
+
+    // Uploads new recommendation to the database
+    database.ref().push(recommendedation);
+
   });
 
+});
+database.ref().on("child_added", function (childSnapshot) {
+  console.log(childSnapshot.val());
+
+  // Store everything into a variable.
+  var restName = childSnapshot.val().name;
+  var restLoc = childSnapshot.val().location[1];
+  console.log(restName);
+  console.log(restLoc);
+  var newRow = $("<tr>").prepend(
+    $("<td>").text(restName),
+    $("<td>").text(restLoc),
+  );
+
+  // Append the new row to the table
+  $("#recommendation").prepend(newRow);
 });
