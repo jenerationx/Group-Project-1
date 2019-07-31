@@ -1,12 +1,21 @@
 # Where Should We Eat?
 
-In this assignment, we were put into groups of 4 to make an application that
-utilizes all of the technologies we've learned so far plus at least one new
-technology. We were asked to use at least two APIs and to make calls to the
-APIs with the Ajax method. Our app uses the FourSquare API to select a
+In this project, our group created an app that helps the user choose where to go out to eat when they're having trouble deciding.  We used the FourSquare API to select a
 random restaurant (or 3 random restaurants) and the Waze API to navigate to the
 restaurant after one is chosen.
 
+[Click here to go to the live app!](https://jenerationx.github.io/Group-Project-1/)
+
 ![Screenshot of Where Should We Eat?](https://github.com/jenerationx/Group-Project-1/blob/master/screenshot.png)
 
-Live Demo here: https://jenerationx.github.io/Group-Project-1/
+### Technologies Used
+
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- Bootstrap
+- Firebase
+- AJAX
+- FourSquare API
+- Waze API
